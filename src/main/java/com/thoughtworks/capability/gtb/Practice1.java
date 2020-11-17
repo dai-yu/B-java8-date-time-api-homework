@@ -10,7 +10,20 @@ import java.time.LocalDate;
  */
 public class Practice1 {
 
-  public static long getDaysBetweenNextLaborDay(LocalDate date) {
-    return 0;
-  }
+    public static long getDaysBetweenNextLaborDay(LocalDate date) {
+        LocalDate laborDay = LocalDate.of(2020, 5, 1);
+        int laborDayDayOfYear = laborDay.getDayOfYear();
+        int dayOfYear = date.getDayOfYear();
+        int differernce = laborDayDayOfYear - dayOfYear;
+        if (differernce < 0) {
+            int nextLaborDayDaOfYear = laborDay.withYear(date.plusYears(1).getYear()).getDayOfYear();
+            if (date.isLeapYear()) {
+                return 366 - dayOfYear + nextLaborDayDaOfYear;
+            } else {
+                return 365 - dayOfYear + nextLaborDayDaOfYear;
+            }
+        } else {
+            return differernce;
+        }
+    }
 }
